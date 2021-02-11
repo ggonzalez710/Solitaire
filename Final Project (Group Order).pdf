@@ -1,0 +1,18 @@
+Solitarie set up:
+
+1. ventana grafica (codiciones del mapa)                                - Ricardo
+2. el numero de las tarjetas (imagenes)                                 - Gabriel Gonzalez 
+3. el movimiento de las cartas                                          - Gabriel Roman
+4. las condiciones de las tarjetas(flip,elimination,colums)             - Gabriel Roman
+5. score, mode y tiempo                                                 - Ricardo
+6. interface                                                            - Ricardo y Gabriel Gonzalez
+7. el deck y card format (Random, order)                                - Gabriel Gonzalez
+10. message warning                                                     - Ricardo
+13. undo button                                                         - Gabriel Roman
+14. game over y winner                                                  - TODOS
+
+if time is available:
+
+11. top scorers - file
+12. modes
+13. hints
