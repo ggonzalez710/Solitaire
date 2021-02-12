@@ -38,7 +38,7 @@ class Cards:
     def showBack(self):
         # Shows back side of a card
         # This function draws the back image at the card's center point
-        self.backwardsCard = Image(self.center, "back.gif")
+        self.backwardsCard = Image(self.center, "Card Images/back.gif")
         self.backwardsCard.draw(self.win)
         self.hidden = True
 
@@ -50,79 +50,79 @@ class Cards:
         if self.type == "Hearts":
             if self.number == 1:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "heartsA.gif")
+                self.frontCard = Image(self.center, "Card Images/heartsA.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts2.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts2.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts3.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts3.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts4.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts4.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts5.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts5.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts6.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts6.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts7.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts7.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts8.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts8.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts9.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts9.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "hearts10.gif")
+                self.frontCard = Image(self.center, "Card Images/hearts10.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "heartsJack.gif")
+                self.frontCard = Image(self.center, "Card Images/heartsJack.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "heartsQueen.gif")
+                self.frontCard = Image(self.center, "Card Images/heartsQueen.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "heartsKing.gif")
+                self.frontCard = Image(self.center, "Card Images/heartsKing.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
@@ -130,79 +130,79 @@ class Cards:
         if self.type == "Diamonds":
             if self.number == 1:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamondsA.gif")
+                self.frontCard = Image(self.center, "Card Images/diamondsA.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds2.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds2.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds3.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds3.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds4.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds4.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds5.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds5.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds6.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds6.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds7.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds7.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds8.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds8.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds9.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds9.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamonds10.gif")
+                self.frontCard = Image(self.center, "Card Images/diamonds10.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamondsJack.gif")
+                self.frontCard = Image(self.center, "Card Images/diamondsJack.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamondsQueen.gif")
+                self.frontCard = Image(self.center, "Card Images/diamondsQueen.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "diamondsKing.gif")
+                self.frontCard = Image(self.center, "Card Images/diamondsKing.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
@@ -211,79 +211,79 @@ class Cards:
         if self.type == "Clubs":
             if self.number == 1:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubsA.gif")
+                self.frontCard = Image(self.center, "Card Images/clubsA.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs2.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs2.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs3.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs3.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs4.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs4.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs5.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs5.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs6.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs6.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs7.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs7.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs8.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs8.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs9.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs9.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubs10.gif")
+                self.frontCard = Image(self.center, "Card Images/clubs10.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubsJack.gif")
+                self.frontCard = Image(self.center, "Card Images/clubsJack.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubsQueen.gif")
+                self.frontCard = Image(self.center, "Card Images/clubsQueen.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "clubsKing.gif")
+                self.frontCard = Image(self.center, "Card Images/clubsKing.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
@@ -291,79 +291,79 @@ class Cards:
         if self.type == "Spades":
             if self.number == 1:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spadesA.gif")
+                self.frontCard = Image(self.center, "Card Images/spadesA.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades2.gif")
+                self.frontCard = Image(self.center, "Card Images/spades2.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades3.gif")
+                self.frontCard = Image(self.center, "Card Images/spades3.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades4.gif")
+                self.frontCard = Image(self.center, "Card Images/spades4.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades5.gif")
+                self.frontCard = Image(self.center, "Card Images/spades5.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades6.gif")
+                self.frontCard = Image(self.center, "Card Images/spades6.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades7.gif")
+                self.frontCard = Image(self.center, "Card Images/spades7.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades8.gif")
+                self.frontCard = Image(self.center, "Card Images/spades8.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades9.gif")
+                self.frontCard = Image(self.center, "Card Images/spades9.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spades10.gif")
+                self.frontCard = Image(self.center, "Card Images/spades10.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spadesJack.gif")
+                self.frontCard = Image(self.center, "Card Images/spadesJack.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spadesQueen.gif")
+                self.frontCard = Image(self.center, "Card Images/spadesQueen.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
-                self.frontCard = Image(self.center, "spadesKing.gif")
+                self.frontCard = Image(self.center, "Card Images/spadesKing.gif")
                 self.frontCard.draw(self.win)
                 self.hidden = False
 
