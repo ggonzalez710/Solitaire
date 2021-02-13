@@ -233,7 +233,7 @@ class Solitaire:
         self.deck = []
         self.deck.append(self.hearts)
         self.deck.append(self.diamonds)
-        self.deck.append(self.clubs)
+        self.deck.append(self.clubs
         self.deck.append(self.spades)
         """
 
