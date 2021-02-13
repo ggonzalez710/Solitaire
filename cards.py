@@ -374,7 +374,7 @@ class Cards:
                 self.ymin <= p.getY() <= self.ymax)
 
     def moveCard(self, x, y):
-        if self.hidden:             # If card is on its' back side, move back image
+        if self.hidden:             # If card is on its' back side, move back imag
             self.backwardsCard.move(x, y)
         elif not self.hidden:       # If card is on its' front side, move front image
             self.frontCard.move(x, y)
