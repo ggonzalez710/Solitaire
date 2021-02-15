@@ -1,9 +1,9 @@
-from graphics import *
-from button import Button
-from cards import Cards
-from time import *
-from random import *
-from playsound import *
+from graphics      import *
+from button        import *
+from cards         import *
+from time          import *
+from random        import *
+from playsound     import *
 from Card_Movement import *
 
 class Solitaire:
@@ -21,23 +21,19 @@ class Solitaire:
         self.Start = Button(self.ST_win, Point(150, 100), 120, 50, "Start Game")
         self.Start.activate()
         self.Selection = self.StartMenu() 
+        self.Game_Setup()
+
+    def Game_Setup(self):
+        
         if self.Selection == "Start":
-          
+          self.stockpile = []  
           self.win = GraphWin("Solitaire", 1000, 900)
-          self.stockpile = []
           self.foundationPiles1 = Button(self.win, Point(525, 700), 100, 150, "Foundation")
           self.foundationPiles2 = Button(self.win, Point(650, 700), 100, 150, "Foundation")
           self.foundationPiles3 = Button(self.win, Point(775, 700), 100, 150, "Foundation")
           self.foundationPiles4 = Button(self.win, Point(900, 700), 100, 150, "Foundation")
           self.Time             = Button(self.win, Point(575, 850), 120, 50 ,       "Time")   #<-- No buttons, just updated text
           self.Score            = Button(self.win, Point(425, 850), 120, 50 ,      "Score")   #<-- No buttons, just updated text
-          self.Game_Setup()
-        else:
-          pass
-
-    def Game_Setup(self):
-        
-        if self.Selection == "Start":  
           self.win.setCoords(0,0,1000,900) #Placed Set Coords for better placing the objects
           self.win.setBackground("green")
           self.Time.activate()
@@ -56,11 +52,14 @@ class Solitaire:
           pass
 
     def button_functions(self):
-        
-        if self.QuitButton.clicked():
+        Selection=self.win.checkMouse()
+        if Selection == None:
+            pass
+        elif self.QuitButton.clicked(Selection):
             self.win.close()
-            selection=self.Start_Menu()
-        elif self.UndoButton.clicked():  #DON'T CHANGE PLEASE by: Gabriel Roman
+            self.Selection=self.StartMenu()
+            self.Game_Setup()
+        elif self.UndoButton.clicked(Selection):  #DON'T CHANGE PLEASE by: Gabriel Roman
             self.UndoButton.Undo_Activate(self.win,Card)
         else:
             self.UndoButton.movement_store(Card,self.win)
@@ -196,7 +195,7 @@ class Solitaire:
     def StartMenu(self):
 
         Correct_Selection=False
-        playsound('poker.mp3', False)
+        #playsound('poker.mp3', False)
         while Correct_Selection == False:  
           Select_B = self.ST_win.checkMouse()
           Selection = "Start"
@@ -222,3 +221,6 @@ class Solitaire:
         
 #if __name__=="__main__":           
 Test = Solitaire()
+setting=True
+while setting:
+    Test.button_functions()
