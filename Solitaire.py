@@ -20,32 +20,32 @@ class Solitaire:
         self.Quit.activate()
         self.Start = Button(self.ST_win, Point(150, 100), 120, 50, "Start Game")
         self.Start.activate()
-        
-        
-        Selection = self.StartMenu() 
-
-
-        
-        if Selection == "Start":
-          self.stockpile = []  
+        self.Selection = self.StartMenu() 
+        if self.Selection == "Start":
+          
           self.win = GraphWin("Solitaire", 1000, 900)
+          self.stockpile = []
+          self.foundationPiles1 = Button(self.win, Point(525, 700), 100, 150, "Foundation")
+          self.foundationPiles2 = Button(self.win, Point(650, 700), 100, 150, "Foundation")
+          self.foundationPiles3 = Button(self.win, Point(775, 700), 100, 150, "Foundation")
+          self.foundationPiles4 = Button(self.win, Point(900, 700), 100, 150, "Foundation")
+          self.Time             = Button(self.win, Point(575, 850), 120, 50 ,       "Time")   #<-- No buttons, just updated text
+          self.Score            = Button(self.win, Point(425, 850), 120, 50 ,      "Score")   #<-- No buttons, just updated text
+          self.Game_Setup()
+        else:
+          pass
+
+    def Game_Setup(self):
+        
+        if self.Selection == "Start":  
           self.win.setCoords(0,0,1000,900) #Placed Set Coords for better placing the objects
           self.win.setBackground("green")
-          
-          self.Time = Button(self.win, Point(575, 850), 120, 50, "Time")   #<-- No buttons, just updated text
           self.Time.activate()
-          self.Score = Button(self.win, Point(425, 850), 120, 50, "Score")#<-- No buttons, just updated text
           self.Score.activate()
-
-          self.foundationPiles1 = Button(self.win, Point(525, 700), 100, 150, "Foundation")  # add +150 pixel in the x value for all
           self.foundationPiles1.activate()
-          self.foundationPiles2 = Button(self.win, Point(650, 700), 100, 150, "Foundation")
           self.foundationPiles2.activate()
-          self.foundationPiles3 = Button(self.win, Point(775, 700), 100, 150, "Foundation")
           self.foundationPiles3.activate()
-          self.foundationPiles4 = Button(self.win, Point(900, 700), 100, 150, "Foundation")
           self.foundationPiles4.activate()
-          
           self.QuitButton = Button(self.win, Point(575, 100), 120, 50, "Quit")
           self.QuitButton.activate()
           
@@ -59,6 +59,7 @@ class Solitaire:
         
         if self.QuitButton.clicked():
             self.win.close()
+            selection=self.Start_Menu()
         elif self.UndoButton.clicked():  #DON'T CHANGE PLEASE by: Gabriel Roman
             self.UndoButton.Undo_Activate(self.win,Card)
         else:
