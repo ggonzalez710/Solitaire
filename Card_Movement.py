@@ -1,5 +1,6 @@
 from graphics import *
 from cards import *
+from button import *
 
 class Card_Movement(Cards):
   
@@ -9,18 +10,10 @@ class Card_Movement(Cards):
      put it in.
   """
   def __init__(self):
+    
     super().__init__()
     self.Card_Mov=Point(0,0)
     self.MOVE=0
-    self.cardSL1=Rectangle(Point(500,400),Point(600,600)) #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL1.setFill("white")                         #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL1.setOutline("black")                      #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL1.draw(self.Window)                        #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL2=Rectangle(Point(300,400),Point(400,600)) #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL2.setFill("white")                         #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL2.setOutline("black")                      #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-    self.cardSL2.draw(self.Window)                        #Eliminate after test and add conditions or merge with field program or comment it for future change or testing
-  
     self.card.draw(self.Window)
 
 
@@ -129,18 +122,11 @@ class Card_Movement(Cards):
 
 
       
-class Undo_Botton:
+class Undo_Botton(Button):
 
   
   def __init__ (self,Window):
-    
-    self.Button=Rectangle(Point(300,250),Point(500,300))
-    self.Button.setFill("white")
-    self.Button.draw(Window)
-    self.Label=Text(self.Button.getCenter(),"Undo")
-    self.Label.setFill("gray")
-    self.Label.draw(Window)
-    self.Label_set=1
+    super().__init__()
     self.moves=[]
     self.move_size=len(self.moves)
 
