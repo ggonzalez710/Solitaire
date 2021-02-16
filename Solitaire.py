@@ -10,13 +10,8 @@ class Solitaire:
 
     def __init__(self):
         """
-<<<<<<< HEAD
             Sets the Game of Solitaire. Here you will find all the objects for
             the start of the game.
-=======
-            Sets the Game of Solitary here you will find all the objects for
-            the starting of the game.
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         """
         self.ST_win = GraphWin("Solitaire", 500, 200)
         self.ST_win.setCoords(0,0,500,200)  #Placed Set Coords for better placing the objects
@@ -73,26 +68,16 @@ class Solitaire:
 
     def create_cards(self):
         stockpile_position = Point(100, 700) # Starting position of the entire deck
-<<<<<<< HEAD
         colors = ["Red","Black"]
         c = 0                                                    # counter for card color
         types = ["Hearts","Diamonds","Clubs","Spades"]
         t = 0                                                    # counter for card type
         x = 0                                                    # counter for card number
         
-=======
-        colors=["Red","Black"]
-        c=0
-        types=["Hearts","Diamonds","Clubs","Spades"]
-        t=0
-        x=0
-        #self.hearts = []
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         for i in range(52):
           if x < 13:
            Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
            self.stockpile.append(Card)
-<<<<<<< HEAD
            x += 1
           else:
            t += 1
@@ -115,40 +100,13 @@ class Solitaire:
             self.stockpile[i].showBack()
 
         # Call start_cards() function
-=======
-           x=x+1
-          else:
-           t=t+1
-           x=0
-           if t == 2:
-               c=c+1
-               Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
-               self.stockpile.append(Card)
-           else:
-               Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
-               self.stockpile.append(Card)
-
-
-        # Randomize deck
-        
-        #shuffle(self.stockpile)  # Revisar
-
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         self.start_cards(0, 250)
 
 
     def start_cards(self, x, y):
         # This function places the 28 column cards across the 7 columns
 
-<<<<<<< HEAD
         s = 0.07 # Constant for sleep function
-=======
-        #self.stockpile.reverse()
-
-        s = 0.07 # Constant for sleep function
-
-        
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         
         #column 1
         self.stockpile[0].showFront()
@@ -236,15 +194,10 @@ class Solitaire:
         
 
     def StartMenu(self):
-<<<<<<< HEAD
-=======
-
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         Correct_Selection=False
         #playsound('poker.mp3', False)
         while Correct_Selection == False:  
           Select_B = self.ST_win.checkMouse()
-<<<<<<< HEAD
           if Select_B == None:
               pass
           elif self.Quit.clicked(Select_B):
@@ -252,40 +205,13 @@ class Solitaire:
           elif self.Start.clicked(Select_B):
             Correct_Selection = True
             Selection = "Start"
-=======
-          Selection = "Start"
-          if Select_B == None:
-              pass
-          elif self.Quit.clicked(Select_B):
-            Correct_Selection = True
-            Selection = "Quit"
-            self.ST_win.close()
-            return Selection
-           
-          elif self.Start.clicked(Select_B):
-            Correct_Selection = True
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
             self.ST_win.close()
             return Selection
           else:
             pass
-<<<<<<< HEAD
         
 #if __name__=="__main__":           
 Test = Solitaire()
 setting = True
 while setting:
     Test.button_functions()
-=======
-            
-        
-            
-        
-
-        
-#if __name__=="__main__":           
-Test = Solitaire()
-setting=True
-while setting:
-    Test.button_functions()
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651

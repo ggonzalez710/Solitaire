@@ -6,7 +6,6 @@ class Cards:
     """Displays card images"""
 
     def __init__(self, win, center, width, height, types, number, color):
-    <<<<<<< HEAD
 
         w, h = width/2.0, height/2.0
         x, y = center.getX(), center.getY()
@@ -14,28 +13,12 @@ class Cards:
         self.ymax, self.ymin = y + h, y - h
         p1 = Point(self.xmin, self.ymin)
         p2 = Point(self.xmax, self.ymax)
-=======
-        
-        
-        w, h = width/2.0, height/2.0
-        x, y = center.getX(), center.getY()
-        xmax, xmin = x+ w, x-w
-        ymax, ymin = y+h, y-h
-        p1 = Point(xmin, ymin)
-        p2 = Point(xmax, ymax)
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         
         self.win = win
         self.rect = Rectangle(p1, p2)
         self.types = types
         self.number = number
         self.color = color
-<<<<<<< HEAD
-=======
-        self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif") 
-        self.frontCard = Image(self.rect.getCenter(), "Card Images/spadesA.gif")
-        self.showBack()     # Places the created card in backwards position
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
 
     def getCenter(self):
         return self.rect.getCenter()
@@ -52,10 +35,7 @@ class Cards:
     def showBack(self):
         # Shows back side of a card
         # This function draws the back image at the card's center point
-<<<<<<< HEAD
         self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
-=======
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
         self.backwardsCard.draw(self.win)
         self.hidden = True
 
@@ -391,15 +371,7 @@ class Cards:
                 self.ymin <= p.getY() <= self.ymax)
 
     def moveCard_Start(self, x, y):
-<<<<<<< HEAD
         if self.hidden:             # If card is on its' back side, move back image
             self.backwardsCard.move(x, -y)
         elif not self.hidden:       # If card is on its' front side, move front image
             self.frontCard.move(x, -y)
-=======
-        if self.hidden:             # If card is on its' back side, move back imag
-            self.backwardsCard.move(x, -y)
-        elif not self.hidden:       # If card is on its' front side, move front image
-            self.frontCard.move(x, -y)
-        
->>>>>>> 731dbb8e8237f101995a387b5404d89386e18651
