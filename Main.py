@@ -3,8 +3,8 @@
 # Date:Feb/15/2021
 # Students:
 #  Gabriel A. Roman Tapia COE #85157
-#  NAME #student ID
-#  NAME #student ID
+#  Ricardo J. Rios Perez #112487
+#  Gabriel E. Gonzalez Ortiz #101441
 
 
 from graphics      import *
