@@ -117,11 +117,11 @@ class Solitaire:
              
              
              if (self.stockpile[i].getHidden() == False and self.stockpile[i].click(Selection) and self.stockpile[i].getpos()=="front") and self.MOVE == 0:
-                print("entered a1")
+                
                 self.stockpile[i].Card_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
                 self.stockpile[i].setcondition()
                 self.card_place=i
-                print("entered 1")
+                
                 self.MOVE=1
                 break
                 
@@ -129,7 +129,7 @@ class Solitaire:
              elif (self.stockpile[i].getHidden() == False and self.stockpile[i].click(Selection) and self.stockpile[i].getColor() != self.stockpile[self.card_place].getColor() and self.stockpile[i].getNumber() > self.stockpile[self.card_place].getNumber() ) and self.MOVE == 1:
                  
                  
-                 #self.UndoButton.movement_store_past(self.stockpile[self.card_place],self.card_place,self.win)#revisar el undo 
+                 #self.UndoButton.movement_store_past(self.stockpile,self.card_place,self.win)#revisar el undo 
                  self.stockpile[self.card_place].setCardMove(self.stockpile[i].getCenter())
                  if self.stockpile[self.stockpile[self.card_place].getup_link()].getHidden() == False:
                      
@@ -138,13 +138,16 @@ class Solitaire:
                     self.stockpile[self.card_place].setup_link(i)
                     self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
                     
-                 else:
+                 elif self.stockpile[self.stockpile[self.card_place].getup_link()].getHidden() == True:
  
                     self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
                     self.stockpile[self.stockpile[self.card_place].getup_link()].showFront()
                     self.stockpile[i].setdown_link(self.card_place)
                     self.stockpile[self.card_place].setup_link(i)
-                 #self.UndoButton.movement_store_present(i,self.win)#revisar el undo 
+                 else:  
+                    pass
+                    
+                 #self.UndoButton.movement_store_present(self.stockpile,self.card_place,i,self.win)#revisar el undo 
                  self.MOVE=0
                  print("entered 2")
                  break
