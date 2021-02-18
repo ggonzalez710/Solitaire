@@ -19,6 +19,9 @@ class Cards:
         self.types = types
         self.number = number
         self.color = color
+        self.hidden = True
+        self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
+        self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
 
     def getCenter(self):
         return self.rect.getCenter()
@@ -30,7 +33,9 @@ class Cards:
         return self.number
 
     def getColor(self):
-        return self.color  
+        return self.color
+    def getHidden(self):
+        return self.hidden
 
     def showBack(self):
         # Shows back side of a card
@@ -365,13 +370,14 @@ class Cards:
                 self.hidden = False
 
 
-    def clicked(self, p):
+    def click(self, p):
         "Returns true if the click is inside the card's boundaries"
-        return (self.xmin <= p.getX() <= self.xmax and
-                self.ymin <= p.getY() <= self.ymax)
+        return (self.rect.getP1().getX() <= p.getX() <= self.rect.getP2().getX()) and (self.rect.getP1().getY() <= p.getY() <= self.rect.getP2().getY())
 
     def moveCard_Start(self, x, y):
         if self.hidden:             # If card is on its' back side, move back image
+            self.rect.move(x, -y)
             self.backwardsCard.move(x, -y)
         elif not self.hidden:       # If card is on its' front side, move front image
+            self.rect.move(x, -y)
             self.frontCard.move(x, -y)

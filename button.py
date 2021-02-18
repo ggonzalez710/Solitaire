@@ -26,8 +26,8 @@ class Button:
         self.deactivate()
 
     def clicked(self, p):
-        "Returns true if button active and p is inside"
-        return (self.active and
+         "Returns true if button active and p is inside"
+         return (self.active and
                 self.xmin <= p.getX() <= self.xmax and
                 self.ymin <= p.getY() <= self.ymax)
 
@@ -46,3 +46,35 @@ class Button:
         self.label.setFill('darkgrey')
         self.rect.setWidth(1)
         self.active = False
+class fundation:
+    def __init__(self, win, center, width, height):
+        w,h = width/2.0, height/2.0
+        x,y = center.getX(), center.getY()
+        self.xmax, self.xmin = x+w, x-w
+        self.ymax, self.ymin = y+h, y-h
+        p1 = Point(self.xmin, self.ymin)
+        p2 = Point(self.xmax, self.ymax)
+        self.rect = Rectangle(p1,p2)
+        self.rect.setFill('green')
+        self.rect.draw(win)
+
+    def clicked(self, p):
+         "Returns true if button active and p is inside"
+         return (self.xmin <= p.getX() <= self.xmax and self.ymin <= p.getY() <= self.ymax)
+    
+class columns(Button):
+    def __init__(self, win, center, width, height,num):
+        w,h = width/2.0, height/2.0
+        x,y = center.getX(), center.getY()
+        self.xmax, self.xmin = x+w, x-w
+        self.ymax, self.ymin = y+h, y-h
+        p1 = Point(self.xmin, self.ymin)
+        p2 = Point(self.xmax, self.ymax)
+        self.rect = Rectangle(p1,p2)
+        self.rect.setFill('green')
+        self.rect.draw(win)
+        self.number=num
+    def clicked(self, p):
+         "Returns true if button active and p is inside"
+         return (self.xmin <= p.getX() <= self.xmax and self.ymin <= p.getY() <= self.ymax)
+        

@@ -9,107 +9,66 @@ class Card_Movement(Cards):
      when it returns to the place it was before or accept the place the user
      put it in.
   """
-  def __init__(self):
+  def __init__(self,win, center, width, height, types, number, color):
     
-    super().__init__()
-    self.Card_Mov=Point(0,0)
+    super().__init__(win, center, width, height, types, number, color)
     self.MOVE=0
-    self.card.draw(self.Window)
-
-
+    self.condition=0
+    self.pos="anything"
+    self.Card_Mov=Point(0,0)
+  def setposition(self,position):
+      self.pos=position
+  def getpos(self):
+      return self.pos
+  def setCardMove(self,MOVE):
+    self.Card_Mov=MOVE
+  def setcondition(self):
+    if self.condition == 0:
+      self.condition=1
+    else:
+      self.condition=0
     
-  def Card_Move(self,undo):
+  def Card_Move(self,FoundationPile,column):
     
     """Movement of the card"""
-    undo.Undo_Activate(self.Window,self.card)
-    self.Card_Mov=self.Window.checkMouse()
-    Condition,SL=self.Conditions() 
-    if self.Card_Mov == None:
-      pass
-    elif self.Card_Mov.getX() >= self.card.getP1().getX() and self.Card_Mov.getY()>= self.card.getP1().getY() and self.Card_Mov.getX() <= self.card.getP2().getX() and self.Card_Mov.getY() <= self.card.getP2().getY() and self.MOVE==0:  
-      self.card.undraw()
-      self.card.setOutline("yellow")
-      self.card.setWidth(5)
-      self.card.draw(self.Window)
+    
+
+    if self.MOVE == 0:  
+      self.rect.undraw()
+      self.rect.setOutline("yellow")
+      self.rect.setWidth(5)
+      self.rect.draw(self.win)
       self.MOVE=1
       
-    elif self.MOVE==1:
+    elif self.MOVE == 1:
       
-      if Condition == True:
-       if SL == 1:
-         undo.movement_store(self.card,self.Window)
-         self.Card_Mov=self.cardSL1.getCenter()
-         self.card.move((self.Card_Mov.getX()-self.card.getCenter().getX()),(self.Card_Mov.getY()-self.card.getCenter().getY()))
-         self.card.undraw()
-         self.card.setOutline("black")
-         self.card.setWidth(1)
-         self.card.draw(self.Window)
-         self.MOVE=0
-       elif SL == 2:
-         undo.movement_store(self.card,self.Window)
-         self.Card_Mov=self.cardSL2.getCenter()
-         self.card.move((self.Card_Mov.getX()-self.card.getCenter().getX()),(self.Card_Mov.getY()-self.card.getCenter().getY()))
-         self.card.undraw()
-         self.card.setOutline("black")
-         self.card.setWidth(1)
-         self.card.draw(self.Window)
+       if self.condition == 1: #If I select a place where I can move the card
+       
+         
+         
+         self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
+         self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
+         self.frontCard.undraw()
+         self.rect.undraw()
+         self.rect.setOutline("black")
+         self.rect.setWidth(1)
+         self.rect.draw(self.win)
+         self.frontCard.draw(self.win)
+         self.condition=0
          self.MOVE=0
        else:
-         self.card.move(0,0)
-         self.card.undraw()
-         self.card.setOutline("black")
-         self.card.setWidth(1)
-         self.card.draw(self.Window)
+         self.rect.move(0,0)
+         self.frontCard.move(0,0)
+         self.rect.undraw()
+         self.frontCard.undraw()
+         self.rect.setOutline("black")
+         self.rect.setWidth(1)
+         self.rect.draw(self.win)
+         self.frontCard.draw(self.win)
          self.MOVE=0
-      else:
-        Message=Text(Point(400,200),"Sorry, you can only move the card to a rack which has the correct card color \nor to finish a pack")
-        Message.setFace("times roman")
-        Message.setSize(16)
-        Message.draw(self.Window)
-        i=0
-       
-        while i < 1000000:
-        #waiting time to delete message
-          M_out=self.Window.checkMouse()
-          if M_out != None:
-            Message.undraw()
-            i=1000000
-          elif i==1000000:
-            Message.undraw()
-          else:
-             i=i+1
     else:
+       pass
        
-       Message=Text(Point(400,200),"Select the card to move.")
-       Message.setFace("times roman")
-       Message.setSize(16)
-       Message.draw(self.Window)
-       i=0
-       
-       while i < 1000000:
-         #waiting time to delete message
-         
-         M_out=self.Window.checkMouse()
-         if M_out != None:
-           Message.undraw()
-           i=1000000
-         elif i==1000000:
-           Message.undraw()
-         else:
-           i=i+1
-       
-
-  def Conditions(self):
-    """ Conditions for movement
-    """
-    if self.Card_Mov == None:
-       return False,0  
-    elif self.Card_Mov.getX() >= self.cardSL1.getP1().getX() and self.Card_Mov.getY()>= self.cardSL1.getP1().getY() and self.Card_Mov.getX() <= self.cardSL1.getP2().getX() and self.Card_Mov.getY() <= self.cardSL1.getP2().getY():
-       return True,1
-    elif self.Card_Mov.getX() >= self.cardSL2.getP1().getX() and self.Card_Mov.getY()>= self.cardSL2.getP1().getY() and self.Card_Mov.getX() <= self.cardSL2.getP2().getX() and self.Card_Mov.getY() <= self.cardSL2.getP2().getY():
-       return True,2
-    else:
-       return False,0
 
       
   def getWindow(self):
@@ -120,93 +79,116 @@ class Card_Movement(Cards):
 
 
 
-
+  def getMove(self):
+    return self.MOVE
       
-class Undo_Botton(Button):
+class Undo_Button(Button):
 
   
-  def __init__ (self,Window):
-    super().__init__()
-    self.moves=[]
-    self.move_size=len(self.moves)
+  def __init__ (self, win, center, width, height, label):
+    super().__init__(win, center, width, height, label)
+    self.moves_center_rectPA=[]
+    self.moves_center_frontPA=[]
+    self.moves_card_locP=[]
+    self.moves_card2_locP=[]
+    
+    
+    self.move_size=len(self.moves_card2_locP)
 
     
-  def movement_store(self,Card,Window):
+  def movement_store_past(self,card,A,window):
     
     
     if self.move_size == 10:
       
-      del self.moves[0]
-      self.moves.append(Card.getCenter())
+
+      del self.moves_center_rectPA[0]
+      del self.moves_center_frontPA[0]
+      del self.moves_card_locP[0]
+      
+
+      self.moves_center_rectPA.append(card.getCenter())
+      self.moves_center_frontPA.append(card.getCenter())
+      self.moves_card_locP.append(A)
+
+    else:
+      self.moves_center_rectPA.append(card.getCenter())
+      self.moves_center_frontPA.append(card.getCenter())
+      self.moves_card_locP.append(A)
+      self.move_size=len(self.moves_card2_locP)
+      self.Undo_set(window)
+  def movement_store_present(self,B,window):
+    
+    
+    if self.move_size == 10:
+      
+
+      del self.moves_card2_locP[0]
+      
+
+
+      self.moves_card2_locP.append(B)
       
     else:
-      
-      self.moves.append(Card.getCenter())
-      self.move_size=len(self.moves)
-      self.Undo_set(Window)
 
-  def Undo_Activate(self,Window,Card):
+      self.moves_card2_locP.append(B)
+      self.move_size=len(self.moves_card2_locP)
+      self.Undo_set(window)
+
+  def Undo_Activate(self,Card,window):
     
       if self.move_size == 0:
         
         pass
       
       else:
-        Condition=Window.checkMouse()
-        
-        if Condition == None:
           
-          pass
-        
-        elif Condition.getX() >= self.Button.getP1().getX() and Condition.getX() <= self.Button.getP2().getX() and Condition.getY() >= self.Button.getP1().getY() and Condition.getY() <= self.Button.getP2().getY():
-          
-           Card.move((self.moves[self.move_size-1].getX()-Card.getCenter().getX()),(self.moves[self.move_size-1].getY()-Card.getCenter().getY()))
-           del self.moves[(self.move_size-1)]
-           self.move_size=len(self.moves)
-           self.Undo_set(Window)
+        Card[self.moves_card_locP[(self.move_size-1)]].rect.move((self.moves_center_rectPA[(self.move_size-1)].getX()- Card[self.moves_card_locP[(self.move_size-1)]].getCenter().getX()),(self.moves_center_rectPA[(self.move_size-1)].getY()-Card[self.moves_card_locP[(self.move_size-1)]].getCenter().getY()))
+        Card[self.moves_card_locP[(self.move_size-1)]].frontCard.move((self.moves_center_rectPA[(self.move_size-1)].getX()-Card[self.moves_card_locP[(self.move_size-1)]].frontCard.getAnchor().getX()),(self.moves_center_rectPA[(self.move_size-1)].getY()-Card[self.moves_card_locP[(self.move_size-1)]].frontCard.getAnchor().getY()))
+        card_qeue="front"
+        Card[self.moves_card2_locP[(self.move_size-1)]].setposition(card_qeue)
+        del self.moves_card2_locP[(self.move_size-1)]
+        del self.moves_center_rectPA[(self.move_size-1)]
+        del self.moves_center_frontPA[(self.move_size-1)]
+        del self.moves_card_locP[(self.move_size-1)]
+        self.move_size=len(self.moves_card2_locP)
+        self.Undo_set(window)
 
-        else:
-           pass
+
   
   def Undo_set(self,Window):
      
      
-     if self.move_size == 0 and self.Label_set == 0:
+     if self.move_size == 0:
         
-        self.Label.undraw()
-        self.Label.setFill("gray")
-        self.Label.draw(Window)
-        self.Label_set = 1
+        self.deactivate()
         
-     elif self.Label_set == 1 and self.move_size > 0:
+     elif self.move_size > 0:
         
-        self.Label.undraw()
-        self.Label.setFill("black")
-        self.Label.draw(Window)
-        self.Label_set=0
+        self.activate()
         
      else:
        
         pass
       
 
-if __name__ == "__main__": 
-      
-  Test  = Card_Movement()
-  Test2 = Undo_Botton(Test.Window)
+if __name__ == "Game": 
+  win = GraphWin("Solitaire", 1000, 900)    
+  Test  = Card_Movement(win,Point(100,100), 100, 150, "H", 1, "R")
+  Test2 = Undo_Button(win)
   x="on"
   while  x == "on":
   
   
     Test.Card_Move(Test2)
   
-    off=Test.Window.checkKey()
+    off=Test.win.checkKey()
     if off == "":
       pass
     else:
       x="off"
 
     
-  Test.Window.close()
+  Test.win.close()
     
     
