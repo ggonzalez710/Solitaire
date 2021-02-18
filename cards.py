@@ -27,13 +27,13 @@ class Cards:
         
 
     def getdown_link(self):
-        return self.link
+        return self.down_link
     def setdown_link(self,ps):
         self.down_link=ps
     def getup_link(self):
-        return self.link
+        return self.up_link
     def setup_link(self,ps):
-        self.down_link=ps
+        self.up_link=ps
     def getCenter(self):
         return self.rect.getCenter()
 
@@ -383,6 +383,7 @@ class Cards:
 
     def click(self, p):
         "Returns true if the click is inside the card's boundaries"
+        
         return (self.rect.getP1().getX() <= p.getX() <= self.rect.getP2().getX()) and (self.rect.getP1().getY() <= p.getY() <= self.rect.getP2().getY())
 
     def moveCard_Start(self, x, y):

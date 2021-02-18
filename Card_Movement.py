@@ -41,8 +41,8 @@ class Card_Movement(Cards):
       self.rect.draw(self.win)
       self.MOVE=1
       
-    elif self.MOVE == 1 and self.condition == 1 and link == 0: #If I select a place where I can move the card or cards
-      
+    elif self.MOVE == 1 and self.condition == 1 and self.down_link == 0: #If I select a place where I can move the card or cards
+       
            self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
            self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
            self.frontCard.undraw()
@@ -53,10 +53,10 @@ class Card_Movement(Cards):
            self.frontCard.draw(self.win)
            self.condition=0
            self.MOVE=0
-    elif self.MOVE == 1 and self.condition == 1 and link != 0: #If I select a place where I can move the card or cards   
+    elif self.MOVE == 1 and self.condition == 1 and self.down_link != 0: #If I select a place where I can move the card or cards   
          while link != 0:
            link=deck[self.link]
-           self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
+           self.deckrect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
            self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
            self.frontCard.undraw()
            self.rect.undraw()
