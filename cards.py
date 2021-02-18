@@ -25,18 +25,7 @@ class Cards:
         self.hidden = True
         self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
         self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
-        self.down_link=0
-        self.up_link=0
-        
 
-    def getdown_link(self):
-        return self.down_link
-    def setdown_link(self,ps):
-        self.down_link=ps
-    def getup_link(self):
-        return self.up_link
-    def setup_link(self,ps):
-        self.up_link=ps
     def getCenter(self):
         return self.rect.getCenter()
 
@@ -542,12 +531,7 @@ class Cards:
 
     def card_click(self, p):
         "Returns true if the click is inside the card's boundaries"
-<<<<<<< HEAD
         return (self.grabber.getP1().getX() <= p.getX() <= self.grabber.getP2().getX()) and (self.grabber.getP1().getY() <= p.getY() <= self.grabber.getP2().getY())
-=======
-        
-        return (self.rect.getP1().getX() <= p.getX() <= self.rect.getP2().getX()) and (self.rect.getP1().getY() <= p.getY() <= self.rect.getP2().getY())
->>>>>>> 48f7c3b926e8340310bda0768db1a25a3b138a6f
 
     def moveCard_Start(self, x, y):
         if self.hidden:             # If card is on its' back side, move back image
