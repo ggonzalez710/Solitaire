@@ -22,7 +22,18 @@ class Cards:
         self.hidden = True
         self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
         self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
+        self.down_link=0
+        self.up_link=0
+        
 
+    def getdown_link(self):
+        return self.link
+    def setdown_link(self,ps):
+        self.down_link=ps
+    def getup_link(self):
+        return self.link
+    def setup_link(self,ps):
+        self.down_link=ps
     def getCenter(self):
         return self.rect.getCenter()
 
