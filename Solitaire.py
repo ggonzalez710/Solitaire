@@ -344,9 +344,9 @@ class Solitaire:
             Selection = "Start"
             self.ST_win.close()
 
-            mixer.init()
-            mixer.music.load('poker.wav')
-            mixer.music.play(-1)
+            mixer.init() #the only instance we use pygame 
+            mixer.music.load('poker.wav') #the only instance we use pygame
+            mixer.music.play(-1) #the only instance we use pygame
 
             return Selection
           else:
