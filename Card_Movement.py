@@ -16,6 +16,7 @@ class Card_Movement(Cards):
     self.condition=0
     self.pos="anything"
     self.Card_Mov=Point(0,0)
+    
   def setposition(self,position):
       self.pos=position
   def getpos(self):
@@ -28,46 +29,99 @@ class Card_Movement(Cards):
     else:
       self.condition=0
     
-  def Card_Move(self,FoundationPile,column):
+  def Cards_Move(self,FoundationPile,column,deck):
     
     """Movement of the card"""
     
-
-    if self.MOVE == 0:  
+    link=self.down_link
+    if self.MOVE == 0 and link == 0:  
       self.rect.undraw()
       self.rect.setOutline("yellow")
       self.rect.setWidth(5)
       self.rect.draw(self.win)
       self.MOVE=1
+    elif self.MOVE == 0 and link != 0:
+      self.rect.undraw()
+      self.rect.setOutline("yellow")
+      self.rect.setWidth(5)
+      self.rect.draw(self.win)
+      while link != 0:
+        
+        deck(link).rect.undraw()
+        deck(link).rect.setOutline("yellow")
+        deck(link).rect.setWidth(5)
+        deck(link).rect.draw(self.win)
+        link=deck(link).getdown_link
+      self.MOVE=1
       
-    elif self.MOVE == 1:
-      
-       if self.condition == 1: #If I select a place where I can move the card
+    elif self.MOVE == 1 and self.condition == 1 and self.down_link == 0: #If I select a place where I can move the card or cards
        
-         
-         
-         self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
-         self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
-         self.frontCard.undraw()
-         self.rect.undraw()
-         self.rect.setOutline("black")
-         self.rect.setWidth(1)
-         self.rect.draw(self.win)
-         self.frontCard.draw(self.win)
-         self.condition=0
-         self.MOVE=0
+           self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
+           self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
+           self.frontCard.undraw()
+           self.rect.undraw()
+           self.rect.setOutline("black")
+           self.rect.setWidth(1)
+           self.rect.draw(self.win)
+           self.frontCard.draw(self.win)
+           self.condition=0
+           self.MOVE=0
+    elif self.MOVE == 1 and self.condition == 1 and self.down_link != 0: #If I select a place where I can move the card or cards   
+           link=self.down_link
+           self.rect.move((self.Card_Mov.getX()-self.rect.getCenter().getX()),((self.Card_Mov.getY()-self.rect.getCenter().getY())-20))
+           self.frontCard.move((self.Card_Mov.getX()-self.frontCard.getAnchor().getX()),(self.Card_Mov.getY()-self.frontCard.getAnchor().getY()-20))
+           self.frontCard.undraw()
+           self.rect.undraw()
+           self.rect.setOutline("black")
+           self.rect.setWidth(1)
+           self.rect.draw(self.win)
+           self.frontCard.draw(self.win)
+           inc=20
+           while link != 0:
+             deck[link].rect.move((self.rect.getCenter().getX()-deck[link].rect.getCenter().getX()),((self.rect.getCenter().getY()-deck[link].rect.getCenter().getY())-inc))
+             deck[link].frontCard.move((self.rect.getCenter().getX()-deck[link].frontCard.getAnchor().getX()),(self.rect.getCenter().getY()-deck[link].frontCard.getAnchor().getY()-inc))
+             deck[link].frontCard.undraw()
+             deck[link].rect.undraw()
+             deck[link].rect.setOutline("black")
+             deck[link].rect.setWidth(1)
+             deck[link].rect.draw(self.win)
+             deck[link].frontCard.draw(self.win)
+             link=deck[link].getdown_link()
+             inc=inc+20
+           self.condition=0
+           self.MOVE=0
        else:
-         self.rect.move(0,0)
-         self.frontCard.move(0,0)
-         self.rect.undraw()
-         self.frontCard.undraw()
-         self.rect.setOutline("black")
-         self.rect.setWidth(1)
-         self.rect.draw(self.win)
-         self.frontCard.draw(self.win)
-         self.MOVE=0
-    else:
-       pass
+         if link ==0:
+           self.rect.move(0,0)
+           self.frontCard.move(0,0)
+           self.rect.undraw()
+           self.frontCard.undraw()
+           self.rect.setOutline("black")
+           self.rect.setWidth(1)
+           self.rect.draw(self.win)
+           self.frontCard.draw(self.win)
+           self.MOVE=0
+         else:
+           self.rect.move(0,0)
+           self.frontCard.move(0,0)
+           self.rect.undraw()
+           self.frontCard.undraw()
+           self.rect.setOutline("black")
+           self.rect.setWidth(1)
+           self.rect.draw(self.win)
+           self.frontCard.draw(self.win)
+           link=self.down_link
+           while link != 0:
+             deck[link].rect.move(0,0)
+             deck[link].frontCard.move(0,0)
+             deck[link].rect.undraw()
+             deck[link].frontCard.undraw()
+             deck[link].rect.setOutline("black")
+             deck[link].rect.setWidth(1)
+             deck[link].rect.draw(self.win)
+             deck[link].frontCard.draw(self.win)
+             link=deck[link].getdown_link()
+           self.MOVE=0
        
 
       
@@ -190,5 +244,3 @@ if __name__ == "Game":
 
     
   Test.win.close()
-    
-    

@@ -117,22 +117,37 @@ class Solitaire:
              
              
              if (self.stockpile[i].getHidden() == False and self.stockpile[i].click(Selection) and self.stockpile[i].getpos()=="front") and self.MOVE == 0:
-                print("entered a1")
-                self.stockpile[i].Card_Move(self.column,self.foundationPile)#Know the variable it must be a card
+                
+                self.stockpile[i].Card_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
                 self.stockpile[i].setcondition()
                 self.card_place=i
-                print("entered 1")
+                
                 self.MOVE=1
                 break
                 
              #select the next position and set the undo if pressed  
-             elif (self.stockpile[i].getHidden() == False and self.stockpile[i].click(Selection)and self.stockpile[i].getpos()=="front" and self.stockpile[i].getColor() != self.stockpile[self.card_place].getColor() and self.stockpile[i].getNumber() > self.stockpile[self.card_place].getNumber() ) and self.MOVE == 1:
-                 card_qeue="back"
-                 self.stockpile[i].setposition(card_qeue)
-                 self.UndoButton.movement_store_past(self.stockpile[self.card_place],self.card_place,self.win)#revisar el undo 
+             elif (self.stockpile[i].getHidden() == False and self.stockpile[i].click(Selection) and self.stockpile[i].getColor() != self.stockpile[self.card_place].getColor() and self.stockpile[i].getNumber() > self.stockpile[self.card_place].getNumber() ) and self.MOVE == 1:
+                 
+                 
+                 #self.UndoButton.movement_store_past(self.stockpile,self.card_place,self.win)#revisar el undo 
                  self.stockpile[self.card_place].setCardMove(self.stockpile[i].getCenter())
-                 self.stockpile[self.card_place].Card_Move(self.column,self.foundationPile)#Know the variable it must be a card
-                 self.UndoButton.movement_store_present(i,self.win)#revisar el undo 
+                 if self.stockpile[self.stockpile[self.card_place].getup_link()].getHidden() == False:
+                     
+                    self.stockpile[self.stockpile[self.card_place].getup_link()].setdown_link(0)
+                    self.stockpile[i].setdown_link(self.card_place)
+                    self.stockpile[self.card_place].setup_link(i)
+                    self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
+                    
+                 elif self.stockpile[self.stockpile[self.card_place].getup_link()].getHidden() == True:
+ 
+                    self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
+                    self.stockpile[self.stockpile[self.card_place].getup_link()].showFront()
+                    self.stockpile[i].setdown_link(self.card_place)
+                    self.stockpile[self.card_place].setup_link(i)
+                 else:  
+                    pass
+                    
+                 #self.UndoButton.movement_store_present(self.stockpile,self.card_place,i,self.win)#revisar el undo 
                  self.MOVE=0
                  print("entered 2")
                  break
@@ -143,7 +158,7 @@ class Solitaire:
              elif self.stockpile[self.card_place].click(Selection) and self.MOVE == 1:
 
                  self.stockpile[self.card_place].setcondition()
-                 self.stockpile[self.card_place].Card_Move(self.column,self.foundationPile)#Know the variable it must be a card
+                 self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile)#Know the variable it must be a card
                  self.MOVE=0
                  print("entered 3")
                  break
@@ -151,7 +166,7 @@ class Solitaire:
                 #if selected outside of the card or a wrong place deselect the card.
              elif not(self.stockpile[self.card_place].click(Selection))and i==51 and self.MOVE == 1:
                  self.stockpile[self.card_place].setcondition()
-                 self.stockpile[self.card_place].Card_Move(self.column,self.foundationPile)#Know the variable it must be a card
+                 self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
                  self.MOVE=0
                  print("entered 4")
                  
