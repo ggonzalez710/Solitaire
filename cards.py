@@ -18,14 +18,37 @@ class Cards:
         self.rect = Rectangle(p1, p2)
         self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
         self.grabber.setFill('red')
-
+        self.down_link=0
+        self.up_link=0
         self.types = types
         self.number = number
         self.color = color
         self.hidden = True
+        self.register =0
+        self.saveup_register=0
+        self.savedown_register=0
         self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
         self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
-
+    def getsaveup_register(self):
+        return self.saveup_register
+    def setsaveup_register(self,n):
+        self.saveup_register=n
+    def getsavedown_register(self):
+        return self.savedown_register
+    def setsavedown_register(self,n):
+        self.savedown_register=n
+    def getregister(self):
+        return self.register
+    def setregister(self,n):
+        self.register=n
+    def getdown_link(self):
+        return self.down_link
+    def setdown_link(self,p):
+        self.down_link=p
+    def setup_link(self,p):
+        self.up_link=p
+    def getup_link(self):
+       return self.up_link
     def getCenter(self):
         return self.rect.getCenter()
 
