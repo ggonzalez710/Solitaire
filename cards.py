@@ -16,39 +16,10 @@ class Cards:
         
         self.win = win
         self.rect = Rectangle(p1, p2)
-        self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-        self.grabber.setFill('red')
-        self.down_link=0
-        self.up_link=0
         self.types = types
         self.number = number
         self.color = color
-        self.hidden = True
-        self.register =0
-        self.saveup_register=0
-        self.savedown_register=0
-        self.backwardsCard = Image(self.rect.getCenter(), "Card Images/back.gif")
-        self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
-    def getsaveup_register(self):
-        return self.saveup_register
-    def setsaveup_register(self,n):
-        self.saveup_register=n
-    def getsavedown_register(self):
-        return self.savedown_register
-    def setsavedown_register(self,n):
-        self.savedown_register=n
-    def getregister(self):
-        return self.register
-    def setregister(self,n):
-        self.register=n
-    def getdown_link(self):
-        return self.down_link
-    def setdown_link(self,p):
-        self.down_link=p
-    def setup_link(self,p):
-        self.up_link=p
-    def getup_link(self):
-       return self.up_link
+
     def getCenter(self):
         return self.rect.getCenter()
 
@@ -59,9 +30,7 @@ class Cards:
         return self.number
 
     def getColor(self):
-        return self.color
-    def getHidden(self):
-        return self.hidden
+        return self.color  
 
     def showBack(self):
         # Shows back side of a card
@@ -80,117 +49,78 @@ class Cards:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsA.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts2.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts3.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts4.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts5.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts6.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts7.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts8.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts9.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/hearts10.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsJack.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsQueen.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/heartsKing.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
         # Diamonds
@@ -199,117 +129,78 @@ class Cards:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamondsA.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds2.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds3.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds4.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds5.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds6.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds7.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds8.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds9.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamonds10.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamondsJack.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamondsQueen.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/diamondsKing.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
 
@@ -319,117 +210,78 @@ class Cards:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubsA.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs2.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs3.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs4.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs5.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs6.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs7.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs8.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs9.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubs10.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubsJack.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubsQueen.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/clubsKing.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
         # Spades
@@ -438,129 +290,88 @@ class Cards:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spadesA.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 2:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades2.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 3:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades3.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 4:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades4.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 5:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades5.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 6:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades6.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 7:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades7.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 8:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades8.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 9:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades9.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 10:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spades10.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 11:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spadesJack.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 12:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spadesQueen.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
             elif self.number == 13:
                 self.backwardsCard.undraw()
                 self.frontCard = Image(self.rect.getCenter(), "Card Images/spadesKing.gif")
                 self.frontCard.draw(self.win)
-                #self.grabber = Circle(Point(self.xmax - 10, self.ymax - 10), 5)
-                #self.grabber.setFill('red')
-                self.grabber.draw(self.win)
                 self.hidden = False
 
 
-    def card_click(self, p):
+    def clicked(self, p):
         "Returns true if the click is inside the card's boundaries"
-        return (self.grabber.getP1().getX() <= p.getX() <= self.grabber.getP2().getX()) and (self.grabber.getP1().getY() <= p.getY() <= self.grabber.getP2().getY())
+        return (self.xmin <= p.getX() <= self.xmax and
+                self.ymin <= p.getY() <= self.ymax)
 
     def moveCard_Start(self, x, y):
         if self.hidden:             # If card is on its' back side, move back image
-            self.rect.move(x, -y)
             self.backwardsCard.move(x, -y)
         elif not self.hidden:       # If card is on its' front side, move front image
-            self.rect.move(x, -y)
             self.frontCard.move(x, -y)
-            self.grabber.move(x, -y)

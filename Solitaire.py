@@ -4,7 +4,6 @@ from cards         import *
 from time          import *
 from random        import *
 from pygame        import *
-from Card_Movement import *
 
 class Solitaire:
 
@@ -14,40 +13,25 @@ class Solitaire:
             the start of the game.
         """
         self.ST_win = GraphWin("Solitaire", 500, 200)
-        
         self.ST_win.setCoords(0,0,500,200)  #Placed Set Coords for better placing the objects
-        
         self.ST_win.setBackground("green")
         self.Quit = Button(self.ST_win, Point(350, 100), 120, 50, "Quit Game")
         self.Quit.activate()
         self.Start = Button(self.ST_win, Point(150, 100), 120, 50, "Start Game")
         self.Start.activate()
-        self.Selection = self.StartMenu()
-        self.MOVE=0
-        self.Card_Mov=Point(0,0)
+        self.Selection = self.StartMenu() 
         self.Game_Setup()
-        self.card_place=0
         
 
     def Game_Setup(self):
         
         if self.Selection == "Start":
-          self.stockpile = []
-          self.foundationPile =[]
+          self.stockpile = []  
           self.win = GraphWin("Solitaire", 1000, 900)
-          mv=0
-          for i in range(4):
-           foundationPiles = fundation(self.win, Point(525+mv, 700), 100, 150)
-           self.foundationPile.append(foundationPiles)
-           mv=125+mv
-          self.column=[]
-          mv=0
-          for i in range(7):
-
-              Slots=columns(self.win, Point(100+mv, 449.2), 100, 150,(i+1) )
-              self.column.append(Slots)
-              mv=mv+125
-              
+          self.foundationPiles1 = Button(self.win, Point(525, 700), 100, 150, "Foundation")
+          self.foundationPiles2 = Button(self.win, Point(650, 700), 100, 150, "Foundation")
+          self.foundationPiles3 = Button(self.win, Point(775, 700), 100, 150, "Foundation")
+          self.foundationPiles4 = Button(self.win, Point(900, 700), 100, 150, "Foundation")
           #self.Time             = Button(self.win, Point(575, 850), 120, 50 ,       "Time")   #<-- No buttons, just updated text
 
           # Draw timer labels
@@ -79,106 +63,42 @@ class Solitaire:
           self.win.setBackground("green")
           #self.Time.activate()
           #self.Score.activate()
+          self.foundationPiles1.activate()
+          self.foundationPiles2.activate()
+          self.foundationPiles3.activate()
+          self.foundationPiles4.activate()
           self.QuitButton = Button(self.win, Point(925, 850), 120, 50, "Quit")
           self.QuitButton.activate()
           
-          self.UndoButton = Undo_Button(self.win, Point(800, 850), 120, 50, "Undo")
+          self.UndoButton = Button(self.win, Point(800, 850), 120, 50, "Undo")
+          self.UndoButton.activate()
           
           self.create_cards()
           
         else:
           pass
         
-    def button_and_card_functions(self):
-        
+    def button_functions(self):
         Selection=self.win.checkMouse()
-        
         if Selection == None:
             pass
 
-        elif self.foundationPile[0].clicked(Selection): #Work more. Where do we leave the cards and their conditions and also the time?
+        elif self.foundationPiles1.clicked(Selection):
           self.Score(10)
-        elif self.foundationPile[1].clicked(Selection):
+        elif self.foundationPiles2.clicked(Selection):
           self.Score(10)
-        elif self.foundationPile[2].clicked(Selection):
+        elif self.foundationPiles3.clicked(Selection):
           self.Score(10)
-        elif self.foundationPile[3].clicked(Selection):
+        elif self.foundationPiles4.clicked(Selection):
           self.Score(10)
 
         elif self.QuitButton.clicked(Selection):
             self.check_quit()
 
-        elif self.UndoButton.clicked(Selection): 
-             self.UndoButton.Undo_Activate(self.stockpile,self.win)
-
-        else: #Move cards and undo store
-            print(Selection)
-            for i in range(52): #check every card if selected else do nothing.
-             
-             
-             if (self.stockpile[i].getHidden() == False and self.stockpile[i].card_click(Selection)) and self.MOVE == 0:
-                
-                self.stockpile[i].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
-                self.stockpile[i].setcondition()
-                self.card_place=i
-                
-                self.MOVE=1
-                break
-                
-             #select the next position and set the undo if pressed  
-             elif (self.stockpile[i].getHidden() == False and self.stockpile[i].card_click(Selection) and self.stockpile[i].getColor() != self.stockpile[self.card_place].getColor() and self.stockpile[i].getNumber() > self.stockpile[self.card_place].getNumber() and (self.stockpile[i].getNumber() - self.stockpile[self.card_place].getNumber())==1 ) and self.MOVE == 1:
-                 
-                 
-                 #self.UndoButton.movement_store_past(self.stockpile,self.card_place,self.win)#revisar el undo 
-                 self.stockpile[self.card_place].setCardMove(self.stockpile[i].getCenter())
-                 if self.stockpile[self.stockpile[self.card_place].getsaveup_register()].getHidden() == False:
-                     
-                    self.stockpile[self.stockpile[self.card_place].getsaveup_register()].setdown_link(0)
-                    self.stockpile[self.stockpile[self.card_place].getsaveup_register()].setsavedown_register(0)
-                    self.stockpile[i].setdown_link(1)
-                    self.stockpile[i].setsavedown_register(self.card_place)
-                    self.stockpile[self.card_place].setup_link(1)
-                    self.stockpile[self.card_place].setsaveup_register(i)
-                    self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
-                    
-                 elif self.stockpile[self.stockpile[self.card_place].getup_link()].getHidden() == True:
-                    self.stockpile[self.stockpile[self.card_place].getsaveup_register()].setdown_link(0)
-                    self.stockpile[self.stockpile[self.card_place].getsaveup_register()].setsavedown_register(0)
-                    self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)#Know the variable it must be a card
-                    self.stockpile[self.stockpile[self.card_place].getsaveup_register()].showFront()
-                    self.stockpile[i].setdown_link(1)
-                    self.stockpile[i].setsavedown_register(self.card_place)
-                    self.stockpile[self.card_place].setup_link(1)
-                    self.stockpile[self.card_place].setsaveup_register(i)
-                 else:  
-                    pass
-                    
-                 #self.UndoButton.movement_store_present(self.stockpile,self.card_place,i,self.win)#revisar el undo 
-                 self.MOVE=0
-                 print("entered 2")
-                 break
-                 
-                 
-
-               #if pressed the same card deselected
-             elif self.stockpile[self.card_place].card_click(Selection) and self.MOVE == 1:
-
-                 self.stockpile[self.card_place].setcondition()
-                 self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)
-                 self.MOVE=0
-                 print("entered 3")
-                 break
-                 
-                #if selected outside of the card or a wrong place deselect the card.
-             elif not(self.stockpile[self.card_place].card_click(Selection))and i==51 and self.MOVE == 1:
-                 self.stockpile[self.card_place].setcondition()
-                 self.stockpile[self.card_place].Cards_Move(self.column,self.foundationPile,self.stockpile)
-                 self.MOVE=0
-                 print("entered 4")
-                 
-             else:
-                 #else do nothing
-                 pass
+        # elif self.UndoButton.clicked(Selection):  #DON'T CHANGE PLEASE by: Gabriel Roman
+        #     self.UndoButton.Undo_Activate(self.win,Card)
+        # else:
+        #     self.UndoButton.movement_store(Card,self.win)
 
     def check_quit(self):
         self.Q_win = GraphWin("Quit Game", 500, 200)
@@ -221,8 +141,7 @@ class Solitaire:
         
         for i in range(52):
           if x < 13:
-           Card = Card_Movement(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
-           
+           Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
            self.stockpile.append(Card)
            x += 1
           else:
@@ -230,11 +149,11 @@ class Solitaire:
            x = 0
            if t == 2:
                c += 1
-               Card =  Card_Movement(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
+               Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
                self.stockpile.append(Card)
                x += 1
            else:
-               Card =  Card_Movement(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
+               Card = Cards(self.win,  stockpile_position, 100, 150, types[t], x+1, colors[c])
                self.stockpile.append(Card)
                x += 1
 
@@ -254,14 +173,8 @@ class Solitaire:
         s = 0.07 # Constant for sleep function
         
         #column 1
-        
         self.stockpile[0].showFront()
         self.stockpile[0].moveCard_Start(x, y)
-        self.stockpile[0].setregister(0)
-        self.stockpile[0].setdown_link(0)
-        self.stockpile[0].setup_link(0)
-        self.stockpile[0].setsavedown_register(0)
-        self.stockpile[0].setsaveup_register(0)
         sleep(s)
         
         
@@ -270,184 +183,77 @@ class Solitaire:
         for i in range(1,3):
             if i < 2: 
               self.stockpile[i].moveCard_Start(x + 125, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
+              sleep(s)
               j += 20
             else:
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 125, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1)
               sleep(s)
               
         
         #column 3
         j = 0
         for i in range(3, 6):
-            if i == 3: 
+            if i < 5: 
               self.stockpile[i].moveCard_Start(x + 250, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
-              j +=20
-              sleep(s)
-            elif i<5:
-              self.stockpile[i].moveCard_Start(x + 250, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(i-1)
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 250, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1)
               sleep(s)
         
         #column 4
         j = 0
         for i in range(6, 10):
-            if i == 6: 
+            if i < 9: 
               self.stockpile[i].moveCard_Start(x + 375, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
               sleep(s)
               j += 20
-            elif i<9:
-              self.stockpile[i].moveCard_Start(x + 375, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(i-1)
-              sleep(s)
-              j += 20
-            
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 375, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1)
               sleep(s)
         
         #column 5
         j = 0
         for i in range(10, 15):
-            if i == 10: 
+            if i < 14: 
               self.stockpile[i].moveCard_Start(x + 500, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
               sleep(s)
               j += 20
-            elif i<14:
-              self.stockpile[i].moveCard_Start(x + 500, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(i-1)
-              sleep(s)
-              j += 20
-                
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 500, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1) 
               sleep(s)
 
         #column 6
         j = 0
         for i in range(15, 21):
-            if i == 15: 
+            if i < 20: 
               self.stockpile[i].moveCard_Start(x + 625, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
               sleep(s)
               j += 20
-            elif i<20:
-              self.stockpile[i].moveCard_Start(x + 625, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(i-1)
-              sleep(s)
-              j += 20  
             else:
              
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 625, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1) 
               sleep(s)
 
         #column 7
         j = 0
         for i in range(21, 28):
-            if i == 21: 
+            if i < 27: 
               self.stockpile[i].moveCard_Start(x + 750, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(0)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(0)
-              sleep(s)
-              j += 20
-            elif i<27:
-              self.stockpile[i].moveCard_Start(x + 750, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(1)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(i+1)
-              self.stockpile[i].setsaveup_register(i-1)
-              
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 750, y+j)
-              self.stockpile[i].setregister(i)
-              self.stockpile[i].setdown_link(0)
-              self.stockpile[i].setup_link(1)
-              self.stockpile[i].setsavedown_register(0)
-              self.stockpile[i].setsaveup_register(i-1)
               sleep(s)
         
 
@@ -464,9 +270,9 @@ class Solitaire:
             Selection = "Start"
             self.ST_win.close()
 
-            mixer.init() #the only instance we use pygame 
-            mixer.music.load('poker.wav') #the only instance we use pygame
-            mixer.music.play(-1) #the only instance we use pygame 
+            mixer.init()
+            mixer.music.load('poker.wav')
+            mixer.music.play(-1)
 
             return Selection
           else:
@@ -546,6 +352,6 @@ timer_info.append(seconds)
 Test = Solitaire()
 setting = True
 while setting:
-    Test.button_and_card_functions()
+    Test.button_functions()
     sleep(1)
     timer_info = Test.timer(timer_info)
