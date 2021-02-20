@@ -3,7 +3,7 @@ from button        import *
 from cards         import *
 from time          import *
 from random        import *
-#from pygame        import *              # used only for the song; see lines:
+from pygame        import *              # used only for the song; see lines:
 
 class Solitaire:
 
@@ -12,16 +12,45 @@ class Solitaire:
             Sets the Game of Solitaire. Here you will find all the objects for
             the start of the game.
         """
-        self.ST_win = GraphWin("Solitaire", 500, 200)
+        self.ST_win = GraphWin("Solitaire", 500, 300)
         self.ST_win.setCoords(0,0,500,200)  #Placed Set Coords for better placing the objects
         self.ST_win.setBackground("green")
-        self.Quit = Button(self.ST_win, Point(350, 100), 120, 50, "Quit Game")
+        self.Quit = Button(self.ST_win, Point(350, 100), 100, 25, "Quit Game")
         self.Quit.activate()
-        self.Start = Button(self.ST_win, Point(150, 100), 120, 50, "Start Game")
+        self.Start = Button(self.ST_win, Point(150, 100), 100, 25, "Start Game")
         self.Start.activate()
+        self.Rule = Button(self.ST_win, Point(250, 25), 100, 25, "Rules")
+        self.Rule.activate()
         self.Selection = self.StartMenu() 
         self.Game_Setup()
         
+    def Winner_GI(self):
+          self.W_win = GraphWin("Congratulatations", 500, 500)
+          self.W_win.setBackground('green')
+
+          comment1 = "WINNER WINNER CHICKEN DINNER"
+          comment2 = "Score \t\t\t\t\t Points"
+          comment3 =  "Foundation Pile: \t\t\t\t\t", self.total_points
+          comment4 = "Time Bonus: \t\t\t\t ", timer_info
+
+          line = "-" * 90
+          texts = []
+          text1 = Text(Point(250, 70), comment1)
+          text2 = Text(Point(250, 260), comment2)
+          text3 = Text(Point(250, 280),line )
+          text4 = Text(Point(250, 320), comment3)
+          text5 = Text(Point(250, 340), comment4)
+          texts.append(text1)
+          texts.append(text2)
+          texts.append(text3)
+          texts.append(text4)
+          texts.append(text5)
+
+         
+
+          for t in texts:
+            t.draw(self.W_win)
+
 
     def Game_Setup(self):
         
@@ -75,6 +104,12 @@ class Solitaire:
           
           self.UndoButton = Button(self.win, Point(800, 850), 120, 50, "Undo")
           self.UndoButton.activate()
+
+          self.RuleButton = Button(self.win, Point(80, 50),120, 50, "Help")
+          self.RuleButton.activate()
+
+          self.NewGameButton = Button(self.win, Point(220, 50), 120, 50, "Start Over")
+          self.NewGameButton.activate()
           
           self.create_cards()
 
@@ -97,17 +132,26 @@ class Solitaire:
         #         self.current_stockpile_card += 1 
             
 
-        # elif self.foundationPiles1.clicked(Selection):
-        #   self.Score(10)
-        # elif self.foundationPiles2.clicked(Selection):
-        #   self.Score(10)
-        # elif self.foundationPiles3.clicked(Selection):
-        #   self.Score(10)
-        # elif self.foundationPiles4.clicked(Selection):
-        #   self.Score(10)
+        elif self.foundationPiles1.clicked(Selection):
+          self.Score(10)
+        elif self.foundationPiles2.clicked(Selection):
+          self.Score(10)
+        elif self.foundationPiles3.clicked(Selection):
+          self.Score(10)
+        elif self.foundationPiles4.clicked(Selection):
+          self.Score(10)
 
         elif self.QuitButton.clicked(Selection):
-            self.check_quit()
+          self.check_quit()
+        
+        elif self.RuleButton.clicked(Selection):
+          self.Rules()
+
+        elif self.NewGameButton.clicked(Selection):
+          self.New_Game()
+
+        elif self.QuitButton.clicked(Selection):
+          self.check_quit()
 
         else:     # Handle clicks of cards in columns
             #selected_flag = False
@@ -511,16 +555,25 @@ class Solitaire:
               pass
           elif self.Quit.clicked(Select_B):
               exit(Solitaire)
+              self.ST_win.close()
+              self.win.close()
           elif self.Start.clicked(Select_B):
             Correct_Selection = True
             Selection = "Start"
             self.ST_win.close()
 
-            # mixer.init() #the only instance we use pygame 
-            # mixer.music.load('poker.wav') #the only instance we use pygame
-            # mixer.music.play(-1) #the only instance we use pygame 
+            mixer.init() #the only instance we use pygame 
+            mixer.music.load('poker.wav') #the only instance we use pygame
+            mixer.music.play(-1) #the only instance we use pygame 
 
             return Selection
+
+          elif self.Rule.clicked(Select_B):
+              Correct_Selection = False
+              self.Rules()
+              self.StartMenu()
+              Selection = "Start"
+              return Selection
           else:
             pass
 
@@ -579,13 +632,110 @@ class Solitaire:
       """
 
       self.total_points += points
+      if self.total_points >= 40 :
+          self.Winner_GI()
 
       self.Score_number.undraw()
       self.Score_number = Text(Point(350, 850), self.total_points)
       self.Score_number.setTextColor("black")
       self.Score_number.draw(self.win)
     # end Score()
-          
+    
+    def Rules(self):
+          self.R_Win = GraphWin("Rules of Solitaire", 500, 500) # Graphical Window of the Rules
+          self.R_Win.setBackground('green')
+
+          bullets = []
+          bullet1= Circle(Point(40, 25), 3)
+          bullets.append(bullet1)
+          bullet2 = Circle(Point(40, 175), 3)
+          bullets.append(bullet2)
+          for b in bullets:
+                b.setFill("black")
+                b.draw(self.R_Win)
+
+          bulletpoint1 = "The first objective is to release and play into position\n certain cards to build up each foundation, in sequence \nand in suit, from the ace through the king. \nThe ultimate objective is to build the whole pack onto the \nfoundations, and if that can be done, \nthe Solitaire game is won."
+          bulletpoint2 = "The rank of cards in Solitaire games is: \nK (high), Q, J, 10, 9, 8, 7, 6, 5, 4, 3, 2, A (low)."
+
+          line = "-" * 90
+          row1 = "Score \t\t\t\t\t Points"
+          row2 = "Points per Foundation Pile piled \t\t\t + 10"
+          row3 = "Columns Piled \t\t\t\t\t  + 1"
+          row4 = "Time Bonus \t\t\t\t + (may vary)"
+
+          texts= []
+          text1 = Text(Point(250, 70), bulletpoint1)
+          text2 = Text(Point(250, 180), bulletpoint2)
+
+          text_row1 = Text(Point(250, 260), row1)
+          text_line = Text(Point(250, 280), line)
+          text_row2 = Text(Point(250, 300), row2)
+          text_row3 = Text(Point(250, 320), row3)
+          text_row4 = Text(Point(250, 340), row4)
+
+          texts.append(text1)
+          texts.append(text2)
+          texts.append(text_line)
+          texts.append(text_row1)
+          texts.append(text_row2)
+          texts.append(text_row3)
+          texts.append(text_row4)
+
+          for t in texts:
+            t.draw(self.R_Win)
+
+          back = Button(self.R_Win, Point(475, 480), 40, 30, "Exit")
+          back.activate()
+
+          pt = self.R_Win.getMouse()
+          if back.clicked(pt):
+            self.R_Win.close()
+
+          while not back.clicked(pt):
+            pt = self.R_Win.getMouse()
+            if back.clicked(pt):
+                self.R_Win.close()
+
+
+    def New_Game(self):
+        self.N_win = GraphWin("Quit Game", 500, 200)
+        self.N_win.setCoords(0,0,500,200)  #Placed Set Coords for better placing the objects
+        self.N_win.setBackground("green")
+
+        
+
+        msg = "Are you sure you want to quit this game?"
+        msg2 = "You'll lose all your progress!"
+        display_msg = Text(Point(250, 175), msg)
+        display_msg2 = Text(Point(250, 150), msg2)
+        display_msg.setTextColor('black')
+        display_msg2.setTextColor('black')
+        display_msg.draw(self.N_win)
+        display_msg2.draw(self.N_win)
+
+        self.yes = Button(self.N_win, Point(200, 50), 50, 50, "Yes")
+        self.yes.activate()
+        self.no = Button(self.N_win, Point(300, 50), 50, 50, "No")
+        self.no.activate()
+
+        p = self.N_win.getMouse()
+        if self.yes.clicked(p):
+          self.N_win.close()
+          self.ST_win.close()
+          self.win.close()
+          self.__init__()
+        elif self.no.clicked(p):
+          self.N_win.close()
+        while not self.yes.clicked(p) and not self.no.clicked(p):
+          p = self.N_win.getMouse()
+          if self.yes.clicked(p):
+            self.N_win.close()
+            self.ST_win.close()
+            self.win.close()
+            self.__init__()
+          elif self.no.clicked(p):
+            self.N_win.close()
+              
 
 
 timer_info = []
