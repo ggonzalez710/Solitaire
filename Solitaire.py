@@ -3,7 +3,7 @@ from button        import *
 from cards         import *
 from time          import *
 from random        import *
-from pygame        import *
+#from pygame        import *              # used only for the song; see lines:
 
 class Solitaire:
 
@@ -26,6 +26,9 @@ class Solitaire:
     def Game_Setup(self):
         
         if self.Selection == "Start":
+          self.stockpile_rectangle = Rectangle(Point(150, 775), Point(50, 625))
+          self.current_stockpile_card = 24
+
           self.stockpile = []  
           self.win = GraphWin("Solitaire", 1000, 900)
           self.foundationPiles1 = Button(self.win, Point(525, 700), 100, 150, "Foundation")
@@ -74,6 +77,9 @@ class Solitaire:
           self.UndoButton.activate()
           
           self.create_cards()
+
+          self.selected_flag = False
+          self.selected_card = []
           
         else:
           pass
@@ -83,17 +89,214 @@ class Solitaire:
         if Selection == None:
             pass
 
-        elif self.foundationPiles1.clicked(Selection):
-          self.Score(10)
-        elif self.foundationPiles2.clicked(Selection):
-          self.Score(10)
-        elif self.foundationPiles3.clicked(Selection):
-          self.Score(10)
-        elif self.foundationPiles4.clicked(Selection):
-          self.Score(10)
+        # elif 50 <= Selection.getX() <= 150 and 625 <= Selection.getY() <= 775:
+        #         if self.current_stockpile_card == 51:
+        #             self.current_stockpile_card = 0
+        #         self.stockpile[self.current_stockpile_card].move_card(Point(300, 700))
+        #         self.stockpile[self.current_stockpile_card].showFront()
+        #         self.current_stockpile_card += 1 
+            
+
+        # elif self.foundationPiles1.clicked(Selection):
+        #   self.Score(10)
+        # elif self.foundationPiles2.clicked(Selection):
+        #   self.Score(10)
+        # elif self.foundationPiles3.clicked(Selection):
+        #   self.Score(10)
+        # elif self.foundationPiles4.clicked(Selection):
+        #   self.Score(10)
 
         elif self.QuitButton.clicked(Selection):
             self.check_quit()
+
+        else:     # Handle clicks of cards in columns
+            #selected_flag = False
+            #selected_card = []
+
+            for c in range(52):
+                  
+                # Handle first card selection
+                if self.stockpile[c].card_click(Selection) and not self.selected_flag and not self.stockpile[c].isTopOfChain() and not self.stockpile[0].isPartOfChain():     
+                    self.stockpile[c].selected()
+                    self.selected_card.append(self.stockpile[c])
+                    self.selected_flag = True     
+
+                elif self.stockpile[c].card_click(Selection) and not self.selected_flag and self.stockpile[c].isTopOfChain() and not self.stockpile[0].isPartOfChain():
+                    self.stockpile[c].selected()
+                    self.selected_card.append(self.stockpile[c])
+                    self.selected_flag = True
+
+                elif self.stockpile[c].card_click(Selection) and not self.selected_flag and not self.stockpile[c].isTopOfChain() and self.stockpile[0].isPartOfChain():
+                    self.stockpile[c].selected()
+                    self.selected_card.append(self.stockpile[c])
+                    self.selected_flag = True
+
+                # Handle placement of selected card, and flip of backwards card
+                elif self.stockpile[c].card_click(Selection) and self.selected_flag:     
+
+                    # If selected card is clicked again, then deselect it
+                    if (self.selected_card[0].getType() == self.stockpile[c].getType() and
+                        self.selected_card[0].getNumber() == self.stockpile[c].getNumber()):
+                          self.selected_card[0].deselect()
+                          self.selected_card.clear()
+                          self.selected_flag = False
+
+
+                    # If selected card is not clicked again, handle placement of selected card
+                    elif (self.selected_card[0].getNumber() < self.stockpile[c].getNumber() and
+                        self.selected_card[0].getColor() is not self.stockpile[c].getColor()):
+
+                          # If selected card is the top of a chain of cards
+                          if self.selected_card[0].isTopOfChain() and not self.selected_card[0].isPartOfChain():
+                              self.selected_card[0].move_card(self.stockpile[c].getCenter())
+                              last_center = self.selected_card[0].getCenter()
+                              for i in self.selected_card[0].chained_tableau_column:
+                                  i.move_card(last_center)
+                                  last_center = i.getCenter()
+
+                              # Handle excolumn and newcolumn
+                              ex_column = self.selected_card[0].getTableau_Column()
+                              new_column = self.stockpile[c].getTableau_Column()
+                              self.selected_card[0].setTableau_Column(new_column)
+                              self.tableau_cards[new_column - 1].append(self.selected_card[0])
+                              self.tableau_cards[ex_column - 1].remove(self.selected_card[0])
+                              for i in self.selected_card[0].chained_tableau_column:
+                                  i.setTableau_Column(new_column)
+                                  self.tableau_cards[new_column - 1].append(i)
+                                  if self.tableau_cards[ex_column - 1].count(i) is not 0:
+                                    self.tableau_cards[ex_column - 1].remove(i)
+                              size = -1
+                              for i in self.tableau_cards[ex_column - 1]:
+                                size += 1
+                              if size >= 0 and self.tableau_cards[ex_column - 1][size].getHidden():
+                                self.tableau_cards[ex_column - 1][size].showFront()
+
+                              # Handle chains
+                              front_cards = 0
+                              size = 0
+                              chain = []
+                              for i in self.tableau_cards[new_column - 1]:
+                                size += 1
+                                if not i.getHidden():
+                                  front_cards += 1
+                              if front_cards > 1:     # if there is a chain of front cards
+                                self.tableau_cards[new_column - 1][size - front_cards].setTopOfChain()
+                                for i in range(1, front_cards):
+                                  chain.append(self.tableau_cards[new_column - 1][size - i])
+                                  self.tableau_cards[new_column - 1][size - i].setChainFlag(self.tableau_cards[new_column - 1][size - front_cards])
+                                chain.reverse()
+                                self.tableau_cards[new_column - 1][size - front_cards].setRestOfChain(chain)  
+                                                                                                                     
+                                                                    
+                              self.selected_card[0].deselect()
+                              self.selected_card.clear()
+                              self.selected_flag = False
+                          
+
+                          # Next card selected is part of a chain
+                          elif self.selected_card[0].isPartOfChain() and not self.selected_card[0].isTopOfChain():
+                              self.selected_card[0].move_card(self.stockpile[c].getCenter())
+
+                              # Handle excolumn and newcolumn
+                              ex_column = self.selected_card[0].getTableau_Column()
+                              new_column = self.stockpile[c].getTableau_Column()
+                              self.selected_card[0].setTableau_Column(new_column)
+                              self.tableau_cards[new_column - 1].append(self.selected_card[0])
+                              self.tableau_cards[ex_column - 1].remove(self.selected_card[0])
+                              size = -1
+                              for i in self.tableau_cards[ex_column - 1]:
+                                size += 1
+                              if size >= 0 and self.tableau_cards[ex_column - 1][size].getHidden():
+                                self.tableau_cards[ex_column - 1][size].showFront()
+
+                              # Handle ex chain
+                              ex_chain = self.selected_card[0].get_top_of_chain()                              
+                              ex_chain.chained_tableau_column.remove(self.selected_card[0])
+
+
+                              # Handle chains
+                              front_cards = 0
+                              size = 0
+                              chain = []
+                              for i in self.tableau_cards[new_column - 1]:
+                                size += 1
+                                if not i.getHidden():
+                                  front_cards += 1
+                              if front_cards > 1:     # if there is a chain of front cards
+                                self.tableau_cards[new_column - 1][size - front_cards].setTopOfChain()
+                                for i in range(1, front_cards):
+                                  chain.append(self.tableau_cards[new_column - 1][size - i])
+                                  self.tableau_cards[new_column - 1][size - i].setChainFlag(self.tableau_cards[new_column - 1][size - front_cards])
+                                chain.reverse()
+                                self.tableau_cards[new_column - 1][size - front_cards].setRestOfChain(chain)                                                                                                                                    
+                                                            
+
+                              self.selected_card[0].deselect()
+                              self.selected_card.clear()
+                              self.selected_flag = False
+                              
+
+
+                          # Next card selected is not top of a chain nor part of a chain
+                          else:
+                              self.selected_card[0].move_card(self.stockpile[c].getCenter())
+
+                              # Handle excolumn and newcolumn
+                              ex_column = self.selected_card[0].getTableau_Column()
+                              new_column = self.stockpile[c].getTableau_Column()
+                              self.selected_card[0].setTableau_Column(new_column)
+                              self.tableau_cards[new_column - 1].append(self.selected_card[0])
+                              self.tableau_cards[ex_column - 1].remove(self.selected_card[0])
+                              size = -1
+                              for i in self.tableau_cards[ex_column - 1]:
+                                size += 1
+                              if size >= 0 and self.tableau_cards[ex_column - 1][size].getHidden():
+                                self.tableau_cards[ex_column - 1][size].showFront()
+
+                              # Handle chains
+                              #new_column = self.selected_card[0].getTableau_Column()
+                              front_cards = 0
+                              size = 0
+                              chain = []
+                              for i in self.tableau_cards[new_column - 1]:
+                                size += 1
+                                if not i.getHidden():
+                                  front_cards += 1
+                              if front_cards > 1:     # if there is a chain of front cards
+                                #num_of_tops = 0
+                                #array_of_tops = []
+                                # for i in range(1 + 1, front_cards + 1):
+                                #   self.tableau_cards[new_column - 1][size - i].setTopOfChain()
+                                #   array_of_tops.append(self.tableau_cards[new_column - 1][size - i])
+                                #   num_of_tops += 1
+                                # if num_of_tops > 1:
+                                #   for i in range(1, front_cards):
+                                #     for j in range(1, num_of_tops):
+                                #       chain[i - 1].append(self.tableau_cards[new_column - 1][size - i])
+                                #       self.tableau_cards[new_column - 1][size - i].setChainFlag(self.tableau_cards[new_column - 1][size - front_cards])
+                                #       if i is not j:
+                                #         chain[i].append(self.tableau_cards[new_column - 1][size - j])
+                                #         self.tableau_cards[new_column - 1][size - j].setChainFlag(self.tableau_cards[new_column - 1][size - num_of_tops])
+
+
+                                    
+                                self.tableau_cards[new_column - 1][size - front_cards].setTopOfChain()
+                                for i in range(1, front_cards):
+                                  chain.append(self.tableau_cards[new_column - 1][size - i])
+                                  self.tableau_cards[new_column - 1][size - i].setChainFlag(self.tableau_cards[new_column - 1][size - front_cards])
+                                chain.reverse()
+                                self.tableau_cards[new_column - 1][size - front_cards].setRestOfChain(chain)                                                                                                                                    
+
+
+                              self.selected_card[0].deselect()
+                              self.selected_card.clear()
+                              self.selected_flag = False
+
+
+                #if 
+              
+              
+            
 
         # elif self.UndoButton.clicked(Selection):  #DON'T CHANGE PLEASE by: Gabriel Roman
         #     self.UndoButton.Undo_Activate(self.win,Card)
@@ -170,11 +373,30 @@ class Solitaire:
     def start_cards(self, x, y):
         # This function places the 28 column cards across the 7 columns
 
+        self.tableau_cards = []
+        self.column1 = []
+        self.tableau_cards.append(self.column1)
+        self.column2 = []
+        self.tableau_cards.append(self.column2)
+        self.column3 = []
+        self.tableau_cards.append(self.column3)
+        self.column4 = []
+        self.tableau_cards.append(self.column4)
+        self.column5 = []
+        self.tableau_cards.append(self.column5)
+        self.column6 = []
+        self.tableau_cards.append(self.column6)
+        self.column7 = []
+        self.tableau_cards.append(self.column7)
+
+
         s = 0.07 # Constant for sleep function
         
         #column 1
         self.stockpile[0].showFront()
         self.stockpile[0].moveCard_Start(x, y)
+        self.stockpile[0].setTableau_Column(1)
+        self.tableau_cards[0].append(self.stockpile[0])
         sleep(s)
         
         
@@ -183,11 +405,15 @@ class Solitaire:
         for i in range(1,3):
             if i < 2: 
               self.stockpile[i].moveCard_Start(x + 125, y+j)
+              self.stockpile[i].setTableau_Column(2)
+              self.tableau_cards[1].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 125, y+j)
+              self.stockpile[i].setTableau_Column(2)
+              self.tableau_cards[1].append(self.stockpile[i])
               sleep(s)
               
         
@@ -196,12 +422,16 @@ class Solitaire:
         for i in range(3, 6):
             if i < 5: 
               self.stockpile[i].moveCard_Start(x + 250, y+j)
+              self.stockpile[i].setTableau_Column(3)
+              self.tableau_cards[2].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 250, y+j)
+              self.stockpile[i].setTableau_Column(3)
+              self.tableau_cards[2].append(self.stockpile[i])
               sleep(s)
         
         #column 4
@@ -209,12 +439,16 @@ class Solitaire:
         for i in range(6, 10):
             if i < 9: 
               self.stockpile[i].moveCard_Start(x + 375, y+j)
+              self.stockpile[i].setTableau_Column(4)
+              self.tableau_cards[3].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 375, y+j)
+              self.stockpile[i].setTableau_Column(4)
+              self.tableau_cards[3].append(self.stockpile[i])
               sleep(s)
         
         #column 5
@@ -222,12 +456,16 @@ class Solitaire:
         for i in range(10, 15):
             if i < 14: 
               self.stockpile[i].moveCard_Start(x + 500, y+j)
+              self.stockpile[i].setTableau_Column(5)
+              self.tableau_cards[4].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 500, y+j)
+              self.stockpile[i].setTableau_Column(5)
+              self.tableau_cards[4].append(self.stockpile[i])
               sleep(s)
 
         #column 6
@@ -235,12 +473,16 @@ class Solitaire:
         for i in range(15, 21):
             if i < 20: 
               self.stockpile[i].moveCard_Start(x + 625, y+j)
+              self.stockpile[i].setTableau_Column(6)
+              self.tableau_cards[5].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
              
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 625, y+j)
+              self.stockpile[i].setTableau_Column(6)
+              self.tableau_cards[5].append(self.stockpile[i])
               sleep(s)
 
         #column 7
@@ -248,12 +490,16 @@ class Solitaire:
         for i in range(21, 28):
             if i < 27: 
               self.stockpile[i].moveCard_Start(x + 750, y+j)
+              self.stockpile[i].setTableau_Column(7)
+              self.tableau_cards[6].append(self.stockpile[i])
               sleep(s)
               j += 20
             else:
               
               self.stockpile[i].showFront()
               self.stockpile[i].moveCard_Start(x + 750, y+j)
+              self.stockpile[i].setTableau_Column(7)
+              self.tableau_cards[6].append(self.stockpile[i])
               sleep(s)
         
 
@@ -270,9 +516,9 @@ class Solitaire:
             Selection = "Start"
             self.ST_win.close()
 
-            mixer.init()
-            mixer.music.load('poker.wav')
-            mixer.music.play(-1)
+            # mixer.init() #the only instance we use pygame 
+            # mixer.music.load('poker.wav') #the only instance we use pygame
+            # mixer.music.play(-1) #the only instance we use pygame 
 
             return Selection
           else:
